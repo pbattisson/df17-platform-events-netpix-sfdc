@@ -1,0 +1,32 @@
+<apex:page id="communitiesSelfRegPage" showHeader="false" standardStylesheets="false" controller="CommunitiesSelfRegController" title="{!$Label.site.user_registration}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <apex:image url="{!$Resource.netpix_logo}" width="50" height="30"/>
+        </a>
+    </nav>
+    <apex:define name="body">
+        <div class="container">  
+            <apex:form id="theForm" forceSSL="true">
+                <apex:pageMessages id="error"/>
+                <div class="form-group col-md-6">
+                    <apex:outputLabel value="First Name" for="firstName"/>
+                    <apex:inputText required="true" id="firstName" value="{!firstName}" label="First Name" styleClass="form-control"/>
+                    <apex:outputLabel value="Last Name" for="lastName"/>
+                    <apex:inputText required="true" id="lastName" value="{!lastName}" label="Last Name" styleClass="form-control"/>
+                    <apex:outputLabel value="{!$Label.site.community_nickname}" for="communityNickname"/>
+                    <apex:inputText required="true" id="communityNickname" value="{!communityNickname}" label="{!$Label.site.community_nickname}" styleClass="form-control"/>
+                    <apex:outputLabel value="{!$Label.site.email}" for="email"/>
+                    <apex:inputText required="true" id="email" value="{!email}" label="{!$Label.site.email}" styleClass="form-control"/>
+                    <apex:outputLabel value="{!$Label.site.password}" for="password"/>
+                    <apex:inputSecret id="password" value="{!password}"  styleClass="form-control"/>
+                    <apex:outputLabel value="{!$Label.site.confirm_password}" for="confirmPassword"/>
+                    <apex:inputSecret id="confirmPassword" value="{!confirmPassword}"  styleClass="form-control"/>
+                    <apex:outputText value=""/>
+                </div>
+                <apex:commandButton action="{!registerUser}" value="{!$Label.site.submit}" id="submit" style="margin-left: 15px;" styleClass="btn btn-danger"/>
+            </apex:form>
+        </div>
+    </apex:define>
+
+</apex:page>

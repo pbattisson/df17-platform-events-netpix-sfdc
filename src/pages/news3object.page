@@ -1,0 +1,47 @@
+<apex:page standardController="AWS_S3_Object__c" extensions="S3FormController" showHeader="false" standardStylesheets="false" title="Netpix" action="{!constructor}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"></link>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <apex:image url="{!$Resource.netpix_logo}" width="50" height="30"/>
+        </a>
+		<a class="nav-item nav-link active" href="/apex/lists3objects">My Images</a>
+		<a class="nav-item nav-link" href="/apex/news3object">Upload an Image</a>
+    </nav>
+    <div class="container">
+    	<h1>Upload Image</h1>
+    	<apex:form id="theForm" forceSSL="true">
+            <apex:pageMessages id="error"/>
+            <div class="form-group col-md-6">
+            	<apex:inputHidden value="{!serverURL}" id="hiddenServerURL" />
+				<script  type="text/javascript">
+					document.getElementById('{!$Component.hiddenServerURL}').value = '{!$Api.Enterprise_Server_URL_140}';			
+				</script>
+
+                <apex:outputLabel value="Destination File Name" for="objName" />
+				<apex:inputField value="{!AWS_S3_Object__c.File_Name__c}" id="objName" required="true" onblur="popType(this);" styleClass="form-control" />
+
+				<apex:outputLabel for="bucket" value="Bucket" />
+				<apex:selectList id="bucket" styleClass="form-control" value="{!AWS_S3_Object__c.Bucket_Name__c}" multiselect="false" size="1">
+					<apex:selectOptions value="{!bucketOptions}"/>
+				</apex:selectList>
+
+				<apex:outputLabel value="Content Type" for="ctype"/>
+				<apex:inputField value="{!AWS_S3_Object__c.Content_Type__c}" id="ctype" required="true" styleClass="form-control" >
+					<script type="text/javascript">
+					function popType(element) {
+					// if there is a suffix , set that value into the content type picklist
+					// add more mime types to the content_type picklist as needed
+					var suffix = element.value.replace(/.*\./,'');
+					if (suffix != null) {
+						document.getElementById('{!$Component.ctype}').value = suffix;
+					}
+					}
+					</script>
+				</apex:inputField>
+            </div>
+            <apex:commandButton action="{!save1}" value="Continue" id="submit" style="margin-left: 15px;" styleClass="btn btn-danger"/>
+        </apex:form>
+    </div>
+</apex:page>

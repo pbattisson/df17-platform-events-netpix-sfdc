@@ -1,0 +1,55 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="ViewS3ObjectController" title="Netpix">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"></link>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <apex:image url="{!$Resource.netpix_logo}" width="50" height="30"/>
+        </a>
+		<a class="nav-item nav-link active" href="/apex/lists3objects">My Images</a>
+		<a class="nav-item nav-link" href="/apex/news3object">Upload an Image</a>
+    </nav>
+    <div class="container">
+    	<div class="container margintop30">
+    		<h1>{!image.Name}</h1>
+	        <div class="form_field">
+	        	<div class="row">
+		            <div class="form_cont form-group col-md-6">
+		                <apex:outputLabel value="File Name:" />
+						<span>{!image.File_Name__c}</span>
+			        </div>
+			    </div>
+			    <div class="row">
+		            <div class="form_cont form-group col-md-6">
+		                <apex:outputLabel for="quantity" value="Content Type:" />
+						<span>{!image.Content_Type__c}</span>
+			        </div>
+			    </div>
+			    <div class="row">
+		            <div class="form_cont form-group col-md-6">
+		                <apex:outputLabel for="sln" value="Image Preview" />
+						<apex:image value="https://s3-us-west-1.amazonaws.com/{!image.Bucket_Name__c}/{!image.File_Name__c}" > </apex:image>
+			        </div>
+			    </div>
+		    </div>
+		    <h2>Classifications</h2>
+		    <table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Label</th>
+					<th scope="col">Confidence</th>
+				</tr>
+			</thead>
+			<tbody>
+				<apex:repeat value="{!image.Classifications__r}" var="classification" >
+					<tr>
+						<td>{!classification.Label__c}</td>
+						<td>{!classification.Confidence__c}</td>
+					</tr>
+				</apex:repeat>
+			</tbody>
+		</table>
+		</div>
+
+    </div>
+</apex:page>
